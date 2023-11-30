@@ -12,11 +12,11 @@ Role: Developer || Researcher
     cmd: pip install -r requirements.txt
     
 # Steps Implemented to train the model
-    1. Made an x and y lable to classify the data for prediction.
-    2. Using classifier object for enhancing the service of SVM which provide
-    an prediction for the model.
-    3. Before classifier the lables are need to be standardized that makes
-    mode to be trained with scalar object.
+    1. Make an x and y label to classify the data for prediction.
+    2. Using classifier objects to enhance the service of SVM, which provides
+    a prediction for the model.
+    3. Before classifiers, the labels need to be standardized, which makes
+    mode to be trained with a scalar object.
 
 # To find the accuracy of the given data
     # Execute to find the accuracy of model
@@ -36,5 +36,9 @@ Role: Developer || Researcher
 
 
 # Architecture of the Project
+     1. The model has been trained with the required algorithm and standardized.
+    make an analysis with label values.
+    2. Deploy the project using streamlet and spider web applications to 
+    enhance the dataset with easy access to output.
 
 ![Architecture](https://github.com/NithinU2802/Diabetes_parkinson-Disease-Prediction/assets/106614289/baf5c046-edd3-4fa0-8251-4752ce17a478)
