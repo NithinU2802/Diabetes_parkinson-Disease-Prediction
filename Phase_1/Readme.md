@@ -26,3 +26,10 @@
 # Calculate accuracy
     accuracy = accuracy_score(y_test, y_pred)
     print(f'Model Accuracy: {accuracy}')
+
+# In First face of the project SVM has been Implemented for the project
+    
+    SVM: SVM is a supervised learning algorithm used for classification and regression tasks. It
+    aims to find a hyperplane that best separates different classes in the feature space.
+    Random Forests: Random Forests is an ensemble learning method that builds a multitude of decision
+    trees during training and merges them together to get a more accurate and stable prediction.
