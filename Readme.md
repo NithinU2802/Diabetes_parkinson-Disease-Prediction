@@ -13,7 +13,7 @@ Role: Developer || Researcher
     
 # Steps Implemented to train the model
     1. Make an x and y label to classify the data for prediction.
-    2. Using classifier objects to enhance the service of SVM, which provides
+    2. Using classifier objects to enhance the service of Gradient Boosting, which provides
     a prediction for the model.
     3. Before classifiers, the labels need to be standardized, which makes
     mode to be trained with a scalar object.
@@ -26,13 +26,15 @@ Role: Developer || Researcher
 # Following package need to be access
     import numpy as np
     import pandas as pd
-    from sklearn.preprocessing import StandardScaler
     from sklearn.model_selection import train_test_split
-    from sklearn import svm
+    from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import accuracy_score
+    import matplotlib.pyplot as plt
+    from sklearn.ensemble import GradientBoostingClassifier
+    import warnings
 
-# Model Architecture 
-![SVM](https://github.com/NithinU2802/Diabetes_parkinson-Disease-Prediction/assets/106614289/86f50ead-ee9a-477d-846b-563a1aa2b310)
+# Binary Formating of Model
+![GradientBoosting](https://github.com/NithinU2802/Diabetes_parkinson-Disease-Prediction/assets/106614289/7b4f5eac-ffef-465b-a82c-bd985f187f93)
 
 
 # Architecture of the Project
