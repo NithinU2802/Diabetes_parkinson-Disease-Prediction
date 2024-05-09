@@ -4,10 +4,10 @@ import streamlit as st
 
 # loading the saved models
 
-diabetes_model = pickle.load(open('Diabetes_Model.sav', 'rb'))
+diabetes_model = pickle.load(open('Trained_Model/Diabetes_Model.sav', 'rb'))
 
 parkinsons_model = pickle.load(
-    open('Parkinsons_Model.sav', 'rb'))
+    open('Trained_Model/Parkinsons_Model.sav', 'rb'))
 
 
 selected = st.sidebar.selectbox(
