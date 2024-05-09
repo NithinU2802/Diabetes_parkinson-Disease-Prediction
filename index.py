@@ -1,6 +1,5 @@
 import pickle
 import streamlit as st
-from streamlit_option_menu import option_menu
 
 
 # loading the saved models
@@ -11,15 +10,10 @@ parkinsons_model = pickle.load(
     open('Trained_Model/parkinsons_model.sav', 'rb'))
 
 
-# sidebar for navigation
-with st.sidebar:
-
-    selected = option_menu('Diabetes and Parkinsons Prediction System',
-
-                           ['Diabetes Prediction',
-                            'Parkinsons Prediction'],
-                           icons=['activity', 'person'],
-                           default_index=0)
+selected = st.sidebar.selectbox(
+    'Diabetes and Parkinsons Prediction System',
+    ['Diabetes Prediction', 'Parkinsons Prediction']
+)
 
 st.title("Diabetes and Parkinsons Prediction System")
 
