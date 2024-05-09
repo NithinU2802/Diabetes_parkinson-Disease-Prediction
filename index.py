@@ -4,10 +4,10 @@ import streamlit as st
 
 # loading the saved models
 
-diabetes_model = pickle.load(open('https://github.com/NithinU2802/Diabetes_parkinson-Disease-Prediction/blob/main/Trained_Model/Diabetes_Model.sav', 'rb'))
+diabetes_model = pickle.load(open('Diabetes_Model.sav', 'rb'))
 
 parkinsons_model = pickle.load(
-    open('https://github.com/NithinU2802/Diabetes_parkinson-Disease-Prediction/blob/main/Trained_Model/Parkinsons_Model.sav', 'rb'))
+    open('Parkinsons_Model.sav', 'rb'))
 
 
 selected = st.sidebar.selectbox(
