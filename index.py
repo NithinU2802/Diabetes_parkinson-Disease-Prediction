@@ -10,8 +10,17 @@ def load_model(model_path):
     return model
 
 # Load the models
-diabetes_model = load_model('Trained_Model/Diabetes_Model.sav')
-parkinsons_model = load_model('Trained_Model/Parkinsons_Model.sav')
+try:
+    diabetes_model = load_model('Trained_Model/Diabetes_Model.sav')
+    print("Diabetes model loaded successfully")
+except (EOFError, FileNotFoundError) as e:
+    print(f"Error loading diabetes model: {e}")
+
+try:
+    parkinsons_model = load_model('Trained_Model/Parkinsons_Model.sav')
+    print("Parkinson's model loaded successfully")
+except (EOFError, FileNotFoundError) as e:
+    print(f"Error loading Parkinson's model: {e}")
 
 # Sidebar for navigation
 selected = st.sidebar.selectbox(
