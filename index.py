@@ -1,5 +1,6 @@
 import pickle
 import streamlit as st
+from sklearn.ensemble import GradientBoostingClassifier
 
 # Function to load the model
 # @st.cache(allow_output_mutation=True)
