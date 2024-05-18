@@ -5,22 +5,30 @@ from sklearn.ensemble import GradientBoostingClassifier
 # Function to load the model
 # @st.cache(allow_output_mutation=True)
 def load_model(model_path):
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
-    return model
+    try:
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        st.success(f"Model loaded successfully: {model_path}")
+        return model
+    except (EOFError, FileNotFoundError, ModuleNotFoundError) as e:
+        st.error(f"Error loading model from {model_path}: {e}")
+        return None
 
 # Load the models
 try:
-    diabetes_model = load_model('Trained_Model/Diabetes_Model.sav')
+    diabetes_model = load_model('Trained_Model/Diabetes_Model.pkl')
     print("Diabetes model loaded successfully")
 except (EOFError, FileNotFoundError) as e:
     print(f"Error loading diabetes model: {e}")
+    st.stop()
 
 try:
-    parkinsons_model = load_model('Trained_Model/Parkinsons_Model.sav')
+    parkinsons_model = load_model('Trained_Model/Parkinsons_Model.pkl')
     print("Parkinson's model loaded successfully")
 except (EOFError, FileNotFoundError) as e:
     print(f"Error loading Parkinson's model: {e}")
+    st.stop()
+    
 
 # Sidebar for navigation
 selected = st.sidebar.selectbox(
