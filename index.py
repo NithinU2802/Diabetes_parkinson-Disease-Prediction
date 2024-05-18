@@ -1,6 +1,6 @@
 import pickle
 import streamlit as st
-from sklearn.ensemble import GradientBoostingClassifier
+import pandas as pd
 
 # Function to load the model
 # @st.cache(allow_output_mutation=True)
@@ -8,11 +8,29 @@ def load_model(model_path):
     try:
         with open(model_path, 'rb') as file:
             model = pickle.load(file)
-        st.success(f"Model loaded successfully: {model_path}")
         return model
     except (EOFError, FileNotFoundError, ModuleNotFoundError) as e:
         st.error(f"Error loading model from {model_path}: {e}")
         return None
+
+def load_data(file_path):
+    try:
+        df = pd.read_csv(file_path)
+        return df
+    except FileNotFoundError:
+        st.error(f"File not found: {file_path}")
+        return None
+
+def validate_input(df, column, value):
+    min_val = df[column].min()
+    max_val = df[column].max()
+    if value < min_val or value > max_val:
+        st.error(f"The input value for {column} should be between {min_val} and {max_val}")
+        return False
+    return True
+
+diabetes = load_data('Dataset/CSV_Files/diabetes.csv')
+parkinson = load_data('Dataset/CSV_Files/parkinsons.csv')
 
 # Load the models
 try:
@@ -62,27 +80,45 @@ if selected == 'Diabetes Prediction':
         DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
     with col2:
         Age = st.text_input('Age of the Person')
+    
+    input_valid = True
+    
+    if not (Pregnancies and Glucose and BloodPressure and SkinThickness and Insulin and BMI and DiabetesPedigreeFunction and Age):
+        st.warning("Please provide values for all input fields.")
+    else:
+        input_valid &= validate_input(diabetes, 'Pregnancies', float(Pregnancies))
+        input_valid &= validate_input(diabetes, 'Glucose', float(Glucose))
+        input_valid &= validate_input(diabetes, 'BloodPressure', float(BloodPressure))
+        input_valid &= validate_input(diabetes, 'SkinThickness', float(SkinThickness))
+        input_valid &= validate_input(diabetes, 'Insulin', float(Insulin))
+        input_valid &= validate_input(diabetes, 'BMI', float(BMI))
+        input_valid &= validate_input(diabetes, 'DiabetesPedigreeFunction', float(DiabetesPedigreeFunction))
+        input_valid &= validate_input(diabetes, 'Age', float(Age))
+    
+    if(not input_valid):
+        st.error("Is it readings from human...! Please provide valid input..?")
+    else:
+        # Code for Prediction
+        diab_diagnosis = ''
+ 
+        # Button for Prediction
+        if st.button('Diabetes Test Result'):
+            try:
+                diab_prediction = diabetes_model.predict([[
+                    float(Pregnancies), float(Glucose), float(BloodPressure),
+                    float(SkinThickness), float(Insulin), float(BMI),
+                    float(DiabetesPedigreeFunction), float(Age)
+                ]])
 
-    # Code for Prediction
-    diab_diagnosis = ''
+                if diab_prediction[0] == 1:
+                    diab_diagnosis = 'The person is diabetic'
+                else:
+                    diab_diagnosis = 'The person is not diabetic'
+            except ValueError:
+                st.error("Hey..! Fields are empty..?")
+            
 
-    # Button for Prediction
-    if st.button('Diabetes Test Result'):
-        try:
-            diab_prediction = diabetes_model.predict([[
-                float(Pregnancies), float(Glucose), float(BloodPressure),
-                float(SkinThickness), float(Insulin), float(BMI),
-                float(DiabetesPedigreeFunction), float(Age)
-            ]])
-
-            if diab_prediction[0] == 1:
-                diab_diagnosis = 'The person is diabetic'
-            else:
-                diab_diagnosis = 'The person is not diabetic'
-        except ValueError:
-            st.error("Please enter valid input values")
-
-    st.success(diab_diagnosis)
+        st.success(diab_diagnosis)
 
 # Parkinson's Prediction Page
 if selected == "Parkinsons Prediction":
@@ -134,29 +170,63 @@ if selected == "Parkinsons Prediction":
         D2 = st.text_input('D2')
     with col2:
         PPE = st.text_input('PPE')
+        
+    input_valid=True
+    
+    if not (fo and fhi and flo and Jitter_percent and Jitter_Abs and RAP and PPQ and DDP and Shimmer and Shimmer_dB and APQ3 and APQ5 and APQ and DDA and NHR and HNR and RPDE and DFA and spread1 and spread2 and D2 and PPE):
+        st.warning("Please provide values for all input fields.")
+    else:
+    
+        input_valid &= validate_input(parkinson, 'MDVP:Fo(Hz)', float(fo))
+        input_valid &= validate_input(parkinson, 'MDVP:Fhi(Hz)', float(fhi))
+        input_valid &= validate_input(parkinson, 'MDVP:Flo(Hz)', float(flo))
+        input_valid &= validate_input(parkinson, 'MDVP:Jitter(%)', float(Jitter_percent))
+        input_valid &= validate_input(parkinson, 'MDVP:Jitter(Abs)', float(Jitter_Abs))
+        input_valid &= validate_input(parkinson, 'MDVP:RAP', float(RAP))
+        input_valid &= validate_input(parkinson, 'MDVP:PPQ', float(PPQ))
+        input_valid &= validate_input(parkinson, 'Jitter:DDP', float(DDP))
+        input_valid &= validate_input(parkinson, 'MDVP:Shimmer', float(Shimmer))
+        input_valid &= validate_input(parkinson, 'MDVP:Shimmer(dB)', float(Shimmer_dB))
+        input_valid &= validate_input(parkinson, 'Shimmer:APQ3', float(APQ3))
+        input_valid &= validate_input(parkinson, 'Shimmer:APQ5', float(APQ5))
+        input_valid &= validate_input(parkinson, 'MDVP:APQ', float(APQ))
+        input_valid &= validate_input(parkinson, 'Shimmer:DDA', float(DDA))
+        input_valid &= validate_input(parkinson, 'NHR', float(NHR))
+        input_valid &= validate_input(parkinson, 'HNR', float(HNR))
+        input_valid &= validate_input(parkinson, 'RPDE', float(RPDE))
+        input_valid &= validate_input(parkinson, 'DFA', float(DFA))
+        input_valid &= validate_input(parkinson, 'spread1', float(spread1))
+        input_valid &= validate_input(parkinson, 'spread2', float(spread2))
+        input_valid &= validate_input(parkinson, 'D2', float(D2))
+        input_valid &= validate_input(parkinson, 'PPE', float(PPE))
+    
+    if not input_valid:
+        st.error("Is it readings from human...! Please provide valid input to enable Test Result..?")
+    
+    else:
+        # Code for Prediction
+        parkinsons_diagnosis = ''
 
-    # Code for Prediction
-    parkinsons_diagnosis = ''
+        # Button for Prediction
+        if st.button("Parkinson's Test Result"):
+            try:
+                parkinsons_prediction = parkinsons_model.predict([[
+                    float(fo), float(fhi), float(flo), float(Jitter_percent),
+                    float(Jitter_Abs), float(RAP), float(PPQ), float(DDP),
+                    float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5),
+                    float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE),
+                    float(DFA), float(spread1), float(spread2), float(D2), float(PPE)
+                ]])
 
-    # Button for Prediction
-    if st.button("Parkinson's Test Result"):
-        try:
-            parkinsons_prediction = parkinsons_model.predict([[
-                float(fo), float(fhi), float(flo), float(Jitter_percent),
-                float(Jitter_Abs), float(RAP), float(PPQ), float(DDP),
-                float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5),
-                float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE),
-                float(DFA), float(spread1), float(spread2), float(D2), float(PPE)
-            ]])
+                if parkinsons_prediction[0] == 1:
+                    parkinsons_diagnosis = "The person has Parkinson's disease"
+                else:
+                    parkinsons_diagnosis = "The person does not have Parkinson's disease"
+            except ValueError:
+                st.error("Hey..! Fields are empty..?")
+                
 
-            if parkinsons_prediction[0] == 1:
-                parkinsons_diagnosis = "The person has Parkinson's disease"
-            else:
-                parkinsons_diagnosis = "The person does not have Parkinson's disease"
-        except ValueError:
-            st.error("Please enter valid input values")
-
-    st.success(parkinsons_diagnosis)
+        st.success(parkinsons_diagnosis)
 
 # Function to set background image
 def set_bg_from_url(url, opacity=1):
