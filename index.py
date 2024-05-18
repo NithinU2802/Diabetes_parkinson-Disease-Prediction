@@ -270,6 +270,16 @@ def set_bg_from_url(url, opacity=1):
         """,
         unsafe_allow_html=True
     )
+st.markdown(
+    """
+    <style>
+    .stSelectbox > div > div > div {
+        cursor: pointer;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Set background image from URL
 set_bg_from_url(
