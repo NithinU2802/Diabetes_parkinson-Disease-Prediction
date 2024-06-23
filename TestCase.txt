@@ -1,0 +1,41 @@
+Diabetes Test Case:
+
+Pregnancies - 0
+Skin Thickness Value - 35
+Diabetes Pedigree Function Value - 0.71
+Glucose Level -137
+Insulin Level - 168
+Age of the Person - 33
+Blood Pressure Value - 40
+BMI Value -  43.1
+Result: Diabetic
+
+Pregnancies - 2
+Skin Thickness Value - 32
+Diabetes Pedigree Function Value - 0.187
+Glucose Level - 68
+Insulin Level - 66
+Age of the Person - 25
+Blood Pressure Value - 70
+BMI Value -  25
+Result: Not Diabetic
+
+Pregnancies - 7
+Skin Thickness Value - 17
+Diabetes Pedigree Function Value - 0.466
+Glucose Level -114
+Insulin Level - 110
+Age of the Person - 31
+Blood Pressure Value - 76
+BMI Value -  23.8
+Result: Not Diabetic
+
+Pregnancies - 3
+Skin Thickness Value - 30
+Diabetes Pedigree Function Value - 0.344
+Glucose Level -158
+Insulin Level - 328
+Age of the Person - 35
+Blood Pressure Value - 70
+BMI Value -  35.5
+Result: Diabetic
